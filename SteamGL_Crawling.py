@@ -54,16 +54,17 @@ def scrap(driver):
         for i in range(len(gameLi), len(games)):
             title = games[i].find_element(By.CLASS_NAME, 'title').text
             url = games[i].get_attribute('href')
-            # releaseDate = games[i].find_element(By.CLASS_NAME, 'col.search_released responsive_secondrow')
+            releaseDate = games[i].find_element(By.CLASS_NAME, 'col.search_released.responsive_secondrow').text
 
             my_game = {
                 'title': title,
                 'url': url,
-                # 'date': releaseDate
+                'date': releaseDate
             }
-            gameList.append(my_game)
+            gameLi.append(my_game)
         
-        print(gameLi)
+        for gm in gameLi:
+            print(f'게임명: {gm.title}\n주소: {gm.url}\n 발매일: {gm.date}\n')
 
 
 scrap(driver)
