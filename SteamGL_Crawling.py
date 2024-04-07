@@ -65,8 +65,3 @@ def scrap(driver):
         
         for gm in gameLi:
             print(f'게임명: {gm.title}\n주소: {gm.url}\n 발매일: {gm.date}\n')
-
-
-scrap(driver)
-
-# 문제점: releaseDate값을 긁어오지 못하는중
