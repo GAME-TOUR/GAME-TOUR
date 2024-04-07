@@ -56,5 +56,7 @@ def gameInfo_scrap(driver, driver_eng, url):
             tagLi.append(tag.text)
     tagLi.remove('+')
 
+    # 제목 수집 
     title = driver.find_element(By.ID, 'appHubAppName').text
         
+    
