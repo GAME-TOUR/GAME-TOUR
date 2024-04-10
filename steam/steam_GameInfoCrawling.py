@@ -7,6 +7,8 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 
 
+
+
 # 성인 인증 절차를 미리 해결 
 def adult_cert(driver, driver_eng): 
 
@@ -38,6 +40,7 @@ def gameInfo_scrap(driver, driver_eng, url):
 
     tagLi = []
     infoLi = [] 
+    titleLi = []
 
     driver.implicity_wait(10)
     driver_eng.implicity_wait(10)
@@ -56,7 +59,22 @@ def gameInfo_scrap(driver, driver_eng, url):
             tagLi.append(tag.text)
     tagLi.remove('+')
 
-    # 제목 수집 
+    # 제목 수집 / 영문 이름 수집
     title = driver.find_element(By.ID, 'appHubAppName').text
+    title_en = driver_eng.find_element(By.ID, 'appHubAppName').text
+    titleLi.append(title)
+    titleLi.append(title_en)
+    # 한글/영문 이름이 동일할 수 있으니 중복 제거 
+    titleLi = sorted(set(titleLi))
+
+    # 개발사 / 배급사 수집
+    company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+    publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[4]/div[2]/a').text
+
+    # 게임 정보
+    info = driver.find_element(By.CLASS_NAME, 'game_description_snippet')
+
+
+    
         
     

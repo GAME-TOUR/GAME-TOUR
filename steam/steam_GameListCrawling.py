@@ -3,28 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 
-# 스팀 상점 페이지 주소 (한국어&영어)
-get_url = "https://store.steampowered.com/search/?supportedlang=english%2Ckoreana&filter=topsellers&ndl=1"
-
-opt = Options()
-
-# 브라우저 꺼짐 방지 옵션 - 개발용
-opt.add_experimental_option("detach", True) 
-# 불필요한 에러 메시지 삭제 
-opt.add_experimental_option('excludeSwitches', ['enable-logging'])
-
-# 웹페이지 실행 
-driver = webdriver.Chrome(options=opt)
-driver.get(get_url)
-
-# 사이트를 한국어로 전환
-driver.find_element(By.XPATH, '//*[@id="language_pulldown"]').click()
-driver.find_element(By.XPATH, '//*[@id="language_dropdown"]/div/a[4]').click()
-
-# 언어 전화 로딩 대기
-time.sleep(2)
-
-def scrap(driver): 
+def scrap_steam(driver): 
     gameLi = list()
     doScroll = True
 
@@ -62,6 +41,5 @@ def scrap(driver):
                 'date': releaseDate
             }
             gameLi.append(my_game)
-        
-        for gm in gameLi:
-            print(f'게임명: {gm.title}\n주소: {gm.url}\n 발매일: {gm.date}\n')
+    
+    return gameLi
