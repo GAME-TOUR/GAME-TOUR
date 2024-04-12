@@ -3,9 +3,19 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 
-def scrap_steam(driver): 
+def scrap_gameList(driver): 
     gameLi = list()
     doScroll = True
+
+    # 스팀 게임 목록 
+    driver.get("https://store.steampowered.com/search/?supportedlang=english%2Ckoreana&filter=topsellers&ndl=1")
+    
+    # 사이트를 한국어로 전환
+    driver.find_element(By.XPATH, '//*[@id="language_pulldown"]').click()
+    driver.find_element(By.XPATH, '//*[@id="language_dropdown"]/div/a[4]').click()
+
+    # 언어 전화 로딩 대기
+    time.sleep(2)
 
     # 현재 높이 저장
     curpageHeight = driver.execute_script('return document.body.scrollHeight')
@@ -42,4 +52,3 @@ def scrap_steam(driver):
             }
             gameLi.append(my_game)
     
-    return gameLi

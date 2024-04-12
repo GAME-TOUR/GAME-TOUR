@@ -1,12 +1,14 @@
 # 필요한 정보
 
 ```
-1. 게임 이름 [영문명/한글명]
-2. 제작사 
-3. 썸네일 
-4. 발매일
-5. 게임 정보 
-6. 출씨 날짜 
+게임 한글/영문 이름 
+개발사 / 배급사 
+태그 
+썸네일 (IMG) - 얘는 MongoDB를 이용하여 따로 관리
+발매일 
+게임 소개글 
+플랫폼
+스크린샷 ?? 
 ```
 ## 게임 목록 페이지 크롤링
 
@@ -28,3 +30,18 @@ III. 태그 - 장르와 게임을 대표할 수 있는 단어들 수집
 IV. 게임 설명 
 ```
 
+## 썸네일 
+https://steamcdn-a.akamaihd.net/steam/apps/<APP_ID>/library_600x900_2x.jpg
+
+게임별 고유 ID를 APP_ID에 넣으면 600*900 사진을 구할 수 있다. 
+
+## gameDB MySQL TABLE
+```sql
+ID          int(10), 
+title       varchar(50), 
+studio      varchar(50), 
+publisher   varchar(50), 
+tag         varchar(50), 
+game_info   TEXT NULL, 
+platform    varchar(25)
+```

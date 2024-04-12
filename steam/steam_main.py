@@ -31,5 +31,5 @@ def steam_crawling(driver, driver_eng):
     gameInfo_scrap(driver, driver_eng)
 
     # 게임 목록, 세부정보 MERGE 
-
+    
 
