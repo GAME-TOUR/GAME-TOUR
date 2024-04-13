@@ -29,19 +29,34 @@ II. 개발 스튜디오 / 배급사
 III. 태그 - 장르와 게임을 대표할 수 있는 단어들 수집
 IV. 게임 설명 
 ```
-
+# TO-DO 
 ## 썸네일 
+```sql
 https://steamcdn-a.akamaihd.net/steam/apps/<APP_ID>/library_600x900_2x.jpg
 
-게임별 고유 ID를 APP_ID에 넣으면 600*900 사진을 구할 수 있다. 
+-- 게임별 고유 ID를 APP_ID에 넣으면 600*900 사진을 구할 수 있다. 
+```
 
-## gameDB MySQL TABLE
+## 크롤링한 데이터를 DB에 저장하기 
+```
+정형 데이터는 RDBS(MySQL)로 관리 
+비정형 데이터(이미지)는 MongoDB로 관리 
+파이썬과의 연동을 위해 pymysql 라이브러리 사용 
+```
+### gameDB Column Type 
 ```sql
-ID          int(10), 
-title       varchar(50), 
-studio      varchar(50), 
-publisher   varchar(50), 
-tag         varchar(50), 
-game_info   TEXT NULL, 
-platform    varchar(25)
+-- tag를 text 형식으로 저장하기 위해 배열 자료형을 문자열로 변환, 호출 시 다시 파싱하여 배열로 사용 
+
+id INT(11),
+title varchar(50),
+studio varchar(50),
+publisher varchar(50),
+tag TEXT NULL,
+info TEXT NULL,
+platform varchar(25)
+```
+
+## MODIFY
+```sql
+-- 개발사/배급사 이름이 길어 '+'로 처리되어있는 게임들이 있다. 예외처리 해야함 Ex. 이터널 리턴 
 ```
