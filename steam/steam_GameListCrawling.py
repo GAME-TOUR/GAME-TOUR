@@ -6,7 +6,7 @@ import time
 def scrap_gameList(driver): 
     gameLi = list()
     doScroll = True
-
+    
     # 스팀 게임 목록 
     driver.get("https://store.steampowered.com/search/?supportedlang=english%2Ckoreana&filter=topsellers&ndl=1")
     
@@ -51,4 +51,5 @@ def scrap_gameList(driver):
                 'date': releaseDate
             }
             gameLi.append(my_game)
-    
+
+    return gameLi

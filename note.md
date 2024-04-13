@@ -45,18 +45,19 @@ https://steamcdn-a.akamaihd.net/steam/apps/<APP_ID>/library_600x900_2x.jpg
 ```
 ### gameDB Column Type 
 ```sql
--- tag를 text 형식으로 저장하기 위해 배열 자료형을 문자열로 변환, 호출 시 다시 파싱하여 배열로 사용 
-
 id INT(11),
 title varchar(50),
 studio varchar(50),
 publisher varchar(50),
-tag TEXT NULL,
+tag JSON,
 info TEXT NULL,
 platform varchar(25)
 ```
 
-## MODIFY
+## PROBLEM
 ```
 개발사/배급사 이름이 길어 '+'로 처리되어있는 게임들이 있다. 예외처리 해야함 Ex. 이터널 리턴 
+
+스팀 게임목록 스크롤 중 DLC도 받아오는거 예외처리해야함.
+= 필터에서 게임만 검색 체크 시 해결 가능 
 ```

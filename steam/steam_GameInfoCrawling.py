@@ -6,9 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 import time
 
-
-
-
 # 성인 인증 절차를 미리 해결 
 def adult_cert(driver, driver_eng): 
 
