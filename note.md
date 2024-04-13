@@ -36,8 +36,12 @@ https://steamcdn-a.akamaihd.net/steam/apps/<APP_ID>/library_600x900_2x.jpg
 
 게임별 고유 ID를 APP_ID에 넣으면 600*900 사진을 구할 수 있다. 
 ```
+## 크롤링한 데이터 하나로 합치기
+```
+[Steam] 게임목록과 게임 상세페이지 정보 합치기 
+```
 
-## 크롤링한 데이터를 DB에 저장하기 
+## DB에 저장하기 
 ```
 정형 데이터는 RDBS(MySQL)로 관리 
 비정형 데이터(이미지)는 MongoDB로 관리 
