@@ -39,8 +39,8 @@ def gameInfo_scrap(driver, driver_eng, url):
     infoLi = [] 
     titleLi = []
 
-    driver.implicity_wait(10)
-    driver_eng.implicity_wait(10)
+    driver.implicitly_wait(10)
+    driver_eng.implicitly_wait(10)
 
     driver.get(url)
     driver.get(url)
@@ -69,9 +69,16 @@ def gameInfo_scrap(driver, driver_eng, url):
     publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[4]/div[2]/a').text
 
     # 게임 정보
-    info = driver.find_element(By.CLASS_NAME, 'game_description_snippet')
-
-
+    description = driver.find_element(By.CLASS_NAME, 'game_description_snippet').text
     
+    Info_dic = {
+        'tag': ",".join(tagLi),
+        'title': ",".join(titleLi),
+        'description': description,
+        'company': company,
+        'publisher': publisher,
+        # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
+        'platform': "steam"
+    }
         
     

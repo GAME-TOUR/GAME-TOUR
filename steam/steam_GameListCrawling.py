@@ -13,8 +13,16 @@ def scrap_gameList(driver):
     # 사이트를 한국어로 전환
     driver.find_element(By.XPATH, '//*[@id="language_pulldown"]').click()
     driver.find_element(By.XPATH, '//*[@id="language_dropdown"]/div/a[4]').click()
-
+    
     # 언어 전화 로딩 대기
+    time.sleep(2)
+
+    # 리스트에서 게임만 선택 - DLC, 사운드트랙 등 필요없는 요소들 제거 
+    element = driver.find_element(By.XPATH, '//*[@id="additional_search_options"]/div[4]/div[1]/div')
+    driver.execute_script("arguments[0].click();", element)
+    driver.find_element(By.XPATH, '//*[@id="narrow_category1"]/div[1]/span').click()
+    
+    # 대기
     time.sleep(2)
 
     # 현재 높이 저장
