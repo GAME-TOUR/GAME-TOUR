@@ -16,3 +16,5 @@
 - Back-end: Spring + Gradle, AWS, MYSQL
 - 버전 및 이슈관리: Github
 - 협업 툴: Discord, Google Docs, Jira 
+
+https://www.notion.so/junow2/HNU-Capstone-Game-Tour-4a3c8b4e4ea642ba807cb7d90ec1295b
