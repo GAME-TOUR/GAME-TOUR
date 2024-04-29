@@ -18,3 +18,6 @@
 - 협업 툴: Discord, Google Docs, Jira 
 
 https://www.notion.so/junow2/HNU-Capstone-Game-Tour-4a3c8b4e4ea642ba807cb7d90ec1295b
+
+# 8주차 활동 
+https://junow2.notion.site/8-6fd66a05d6c044558c1aa719bf994558?pvs=4
