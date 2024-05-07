@@ -64,8 +64,10 @@ def gameInfo_scrap(driver, driver_eng, url):
     # 한글/영문 이름이 동일할 수 있으니 중복 제거 
     titleLi = sorted(set(titleLi))
 
-    # 개발사 / 배급사 수집
+    # 개발사 정보 수집
     company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+
+    # 배급사 정보 수집 
     publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[4]/div[2]/a').text
 
     # 게임 정보

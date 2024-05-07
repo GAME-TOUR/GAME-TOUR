@@ -3,10 +3,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 
-from Steam.steam_GameInfoCrawling import adult_cert, gameInfo_scrap
-from Steam.steam_GameListCrawling import scrap_gameList
-from Database.concat              import concat_data
-
+from steam_GameInfoCrawling import adult_cert, gameInfo_scrap
+from steam_GameListCrawling import scrap_gameList
+from Database.concat        import concat_data
 
 def steam_crawling(driver, driver_eng):
 
@@ -27,9 +26,3 @@ def steam_crawling(driver, driver_eng):
     
     # 게임 목록, 세부정보 MERGE 
     concat_data(gameList, infoList, "STEAM")
-
-
-
-
-
-
