@@ -39,11 +39,11 @@ def gameInfo_scrap(driver, driver_eng, url):
     infoLi = [] 
     titleLi = []
 
-    driver.implicitly_wait(10)
-    driver_eng.implicitly_wait(10)
+    driver.implicitly_wait(2)
+    driver_eng.implicitly_wait(2)
 
     driver.get(url)
-    driver.get(url)
+    driver_eng.get(url)
 
     # 태그 수집 
     try:
@@ -68,7 +68,10 @@ def gameInfo_scrap(driver, driver_eng, url):
     company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
 
     # 배급사 정보 수집 
-    publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[4]/div[2]/a').text
+    try: 
+      publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[4]/div[2]/a').text
+    except NoSuchElementException:
+      publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[2]/div/div[3]/div[4]/div[2]/a').text
 
     # 게임 정보
     description = driver.find_element(By.CLASS_NAME, 'game_description_snippet').text
