@@ -49,7 +49,9 @@ def gameInfo_scrap(driver, driver_eng, url):
     try:
         tags = driver.find_element(By.CLASS_NAME,'glance_tags.popular_tags').find_elements(By.CLASS_NAME,'app_tag')
     except NoSuchElementException:
+        print("It's compilation")
         tags = None
+        return
 
     for tag in tags:
         if tag.text != '':
@@ -85,5 +87,6 @@ def gameInfo_scrap(driver, driver_eng, url):
         # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
         'platform': "steam"
     }
-        
+    
+    print(Info_dic)
     

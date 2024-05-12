@@ -58,6 +58,16 @@ def scrap_gameList(driver):
                 'url': url,
                 'date': releaseDate
             }
+            # if my_game['title'] == 'DARK SOULS III Deluxe Edition':
+            #     continue
+            # if my_game['title'] == 'Fallout 4: Game of the Year Edition':
+            #     continue
+            # if my_game['title'] == 'Dying Light Enhanced Edition':
+            #     continue
+            # if my_game['title'] == 'STAR WARS Jedi: Fallen Order Deluxe Edition':
+            #     continue
+            # if my_game['title'] == 'not available':
+            #     continue
             gameLi.append(my_game)
 
     return gameLi

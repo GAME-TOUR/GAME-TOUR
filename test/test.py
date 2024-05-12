@@ -12,7 +12,7 @@ get_url = "https://store.steampowered.com/search/?supportedlang=english%2Ckorean
 opt = Options()
 
 # 브라우저 꺼짐 방지 옵션 - 개발용
-# opt.add_experimental_option("detach", True) 
+opt.add_experimental_option("detach", True) 
 
 # 불필요한 에러 메시지 삭제 
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -76,9 +76,48 @@ def scrap_gameList(driver):
                 'url': url,
                 'date': releaseDate
             }
+            if my_game['title'] == 'DARK SOULS III Deluxe Edition':
+                print("Yes1")
+            if my_game['title'] == 'Fallout 4: Game of the Year Edition':
+                print("Yes2")
+            if my_game['title'] == 'Dying Light Enhanced Edition':
+                print("Yes3")
+            if my_game['title'] == 'STAR WARS Jedi: Fallen Order Deluxe Edition':
+                print("Yes4")
+            if my_game['title'] == 'not available':
+                print("YES5")
+            if my_game['title'] == "Europa Universalis IV":
+                print(my_game['url'])
+                print("YES6")
+            
+            # print(my_game)
             gameLi.append(my_game)
 
     return gameLi
+
+def adult_cert(driver, driver_eng): 
+
+    # 성인 인증이 필요한 게임 페이지
+    driver.get('https://store.steampowered.com/agecheck/app/553850/')
+    driver_eng.get('https://store.steampowered.com/agecheck/app/553850/')
+
+    time.sleep(1)
+    
+    driver.find_element(By.ID, 'ageYear').click()
+    driver_eng.find_element(By.ID, 'ageYear').click()
+
+    time.sleep(1)
+
+
+    driver.find_element(By.XPATH, '//*[@id="ageYear"]/option[101]').click()
+    driver_eng.find_element(By.XPATH, '//*[@id="ageYear"]/option[101]').click()
+
+    time.sleep(1)
+
+    driver.find_element(By.ID, 'view_product_page_btn').click()
+    driver_eng.find_element(By.ID, 'view_product_page_btn').click()
+
+    time.sleep(2)
 
 # 해당 페이지 게임 상세정보 스크래핑 
 def gameInfo_scrap(driver, driver_eng, url):
@@ -93,8 +132,8 @@ def gameInfo_scrap(driver, driver_eng, url):
     driver.get(url)
     driver_eng.get(url)
 
-    driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[1]/div[1]/div[3]/div').click()
-    driver_eng.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[1]/div[1]/div[3]/div').click()
+    # driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[1]/div[1]/div[3]/div').click()
+    # driver_eng.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[1]/div[1]/div[3]/div').click()
     
 
     # 태그 수집 
@@ -102,6 +141,8 @@ def gameInfo_scrap(driver, driver_eng, url):
         tags = driver.find_element(By.CLASS_NAME,'glance_tags.popular_tags').find_elements(By.CLASS_NAME,'app_tag')
     except NoSuchElementException:
         tags = None
+        print("Compilation")
+        return 
 
     for tag in tags:
         if tag.text != '':
@@ -138,13 +179,16 @@ def gameInfo_scrap(driver, driver_eng, url):
         # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
         'platform': "steam"
     }
+
+    print(Info_dic)
   
 
 # smp = list()
 # smp = scrap_gameList(driver)
+# print(smp)
 
 # smp_df = pd.DataFrame(smp)
 
 # print(smp_df)
-
-gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/281990/Stellaris/')
+#adult_cert(driver, driver_eng)
+gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/2326590/Kakuriyo_Village_Moratorium_of_Adolescence/')

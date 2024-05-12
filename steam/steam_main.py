@@ -11,9 +11,11 @@ def steam_crawling(driver, driver_eng):
 
     # 게임 목록 크롤링
     gameList = scrap_gameList(driver)
+    print("gameLsit collect sucess")
 
     # 성인 인증 미리 받기 
     adult_cert(driver, driver_eng)
+    print("adult certification seucess")
 
     # 게임 세부정보 크롤링 
     infoList = []
@@ -24,6 +26,7 @@ def steam_crawling(driver, driver_eng):
         if res != None:
             infoList.append(res)
     
+    print(infoList)
     # 게임 목록, 세부정보 MERGE 
     steam_data(gameList, infoList, "STEAM")
     
@@ -34,7 +37,7 @@ get_url = "https://store.steampowered.com/search/?supportedlang=english%2Ckorean
 opt = Options()
 
 # 브라우저 꺼짐 방지 옵션 - 개발용
-# opt.add_experimental_option("detach", True) 
+opt.add_experimental_option("detach", True) 
 
 # 불필요한 에러 메시지 삭제 
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
