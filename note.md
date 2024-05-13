@@ -58,20 +58,29 @@ info TEXT NULL,
 platform varchar(25)
 ```
 
-## 한국어 + 영어 게임 리스트 (94,470)
-http://store.steampowered.com/search/?sort_by=Price_ASC&category1=998
-
-
 ## PROBLEM
+```
+개발사/배급사 이름이 길어 '+'로 처리되어있는 게임들이 있다. 예외처리 해야함 Ex. 이터널 리턴 
 
-~~개발사/배급사 이름이 길어 '+'로 처리되어있는 게임들이 있다. 예외처리 해야함 Ex. 이터널 리턴~~     
-&rarr; 이름 태그 긁는거라 상관없었다. 
+스팀 게임목록 스크롤 중 DLC도 받아오는거 예외처리해야함.
+= 필터에서 게임만 검색 체크 시 해결 가능 
+```
 
-~~스팀 게임목록 스크롤 중 DLC도 받아오는거 예외처리해야함.~~   
-&rarr; 필터에서 게임만 검색 체크 시 해결 가능 
 
-~~여러게임이 합쳐진 합본이 있다. 예외처리해야함~~   
-&rarr; tag가 none이면 파싱안하고 continue 
+### df result 
+```
+                               title                                                url           date
+0                           Hades II  https://store.steampowered.com/app/1145350/Had...    2024년 5월 7일
+1                PUBG: BATTLEGROUNDS  https://store.steampowered.com/app/578080/PUBG...  2017년 12월 21일
+2                          Apex 레전드™  https://store.steampowered.com/app/1172470/Ape...   2020년 11월 5일
+3                              Hades  https://store.steampowered.com/app/1145360/Had...   2020년 9월 17일
+4                             이터널 리턴  https://store.steampowered.com/app/1049590/_/?...   2023년 7월 20일
+...                              ...                                                ...            ...
+2509                    Neon Warrior  https://store.steampowered.com/app/1505440/Neo...    2021년 3월 3일
+2510                  Simp Simulator  https://store.steampowered.com/app/1350340/Sim...    2020년 8월 1일
+2511  1001 Jigsaw World Tour: Europe  https://store.steampowered.com/app/1128830/100...   2019년 8월 19일
+2512                    Sweet Thomas  https://store.steampowered.com/app/1179540/Swe...   2020년 1월 16일
+2513                             AVA  https://store.steampowered.com/app/1143680/AVA...   2019년 9월 22일
 
-셀레니움 성능이 좋지 않아 2500개 크롤링하는데도 자꾸 먹통이 된다...
-
+[2514 rows x 3 columns]
+```
