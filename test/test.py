@@ -128,8 +128,8 @@ def gameInfo_scrap(driver, driver_eng, url):
     infoLi = [] 
     titleLi = []
 
-    driver.implicitly_wait(2)
-    driver_eng.implicitly_wait(2)
+    driver.implicitly_wait(10)
+    driver_eng.implicitly_wait(10)
 
     driver.get(url)
     driver_eng.get(url)
@@ -176,7 +176,8 @@ def gameInfo_scrap(driver, driver_eng, url):
         # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
         'platform': "steam"
     }
-    print(Info_dic)
+
+    return Info_dic
 
 def concat_data(gameList, infoList, platform): 
     
@@ -185,23 +186,26 @@ def concat_data(gameList, infoList, platform):
     
     now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
 
-    concatList = pd.concat([gameList_df, infoList_df])
+    concatList = pd.concat([gameList_df, infoList_df], axis=1, join='inner')
     concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
 
     return concatList
 
 smp = scrap_gameList(driver)
-print(smp)
+print("gamelist crawling sucess")
 adult_cert(driver, driver_eng)
+print("adult certification sucess")
 
 tmp = []
 for i in range(len(smp)):
     # print(smp[i]['url'])
-    res = gameInfo_scrap(driver, driver_eng, smp[i]['url'])
+    res = gameInfo_scrap(driver, driver_eng, smp[i]['url']) 
+    print(res)
     
     if res != None:
         tmp.append(res)
 
+print("detail information crawling sucess")
 concat_data(smp, tmp, 'steam') 
 
 time.sleep(10)

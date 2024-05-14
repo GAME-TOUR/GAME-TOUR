@@ -84,3 +84,6 @@ platform varchar(25)
 
 [2514 rows x 3 columns]
 ```
+# error
+File "writers.pyx", line 76, in pandas._libs.writers.write_csv_rows
+UnicodeEncodeError: 'cp949' codec can't encode character '\xf6' in position 201: illegal multibyte sequence
