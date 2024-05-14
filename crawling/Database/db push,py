@@ -1,0 +1,60 @@
+import csv
+import mysql.connector
+
+# Connect to the MySQL database
+db = mysql.connector.connect(
+    host="your_host",
+    user="your_username",
+    password="your_password",
+    database="your_database"
+)
+
+cursor = db.cursor()
+
+# Create the table if it doesn't exist
+create_table_query = """
+CREATE TABLE IF NOT EXISTS your_table_name (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title CHAR(255),
+    url CHAR(255),
+    date DATE,
+    tag JSON,
+    K_E JSON,
+    description TEXT,
+    company CHAR(255),
+    publisher CHAR(255),
+    platform CHAR(255)
+)
+"""
+cursor.execute(create_table_query)
+
+# Open the CSV file
+with open('your_csv_file.csv', 'r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+
+    # Prepare the SQL insert query
+    insert_query = """
+    INSERT INTO your_table_name
+    (title, url, date, tag, K_E, description, company, publisher, platform)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+
+    # Iterate over each row in the CSV file and insert data into the database
+    for row in csv_reader:
+        values = (
+            row['title'],
+            row['url'],
+            row['date'],
+            row['tag'],
+            row['K-E'],
+            row['description'],
+            row['company'],
+            row['publisher'],
+            row['platform']
+        )
+        cursor.execute(insert_query, values)
+
+    # Commit the changes and close the connection
+    db.commit()
+    cursor.close()
+    db.close()
