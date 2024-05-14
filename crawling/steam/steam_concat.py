@@ -2,7 +2,7 @@ import pandas as pd
 import time
 from datetime import datetime
 
-def steam_data(gameList, infoList, platform): 
+def steam_concat(gameList, infoList, platform): 
     
     gameList_df = pd.DataFrame(gameList)
     infoList_df = pd.DataFrame(infoList)
@@ -12,8 +12,3 @@ def steam_data(gameList, infoList, platform):
     concatList.to_csv(platform+'/backup'+'_backup'+'.csv', index=False)
 
     return concatList
-  
-GL = {}
-IL = {}
-
-steam_data(GL, IL, "STEAM") 

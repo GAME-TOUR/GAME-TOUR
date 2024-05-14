@@ -20,7 +20,7 @@ opt = Options()
 
 # 드라이버 설정 
 driver = webdriver.Chrome(options=opt)
-driver_eng = webdriver.Chrome(options=opt)
+# driver_eng = webdriver.Chrome(options=opt)
 
 # 성인 인증 절차를 미리 해결 
 def adult_cert(driver, driver_eng): 
