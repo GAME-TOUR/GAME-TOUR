@@ -16,35 +16,19 @@ def popup_close(driver):
 def scrap_gameList(driver):
   
   gameLi = list()
-  
-  title = driver.find_elements(By.XPATH, '//*[@id="product-item-info_11024"]/div/strong/a')
-  url   = driver.find_elements(By.XPATH, '//*[@id="product-item-info_11024"]/div/strong/a')
-  
-  print(title)
-  print(url)
-  
-  # g = driver.find_elements(By.XPATH, '//*[@id="amasty-shopby-product-list"]')
-  # print(g)
-  # print(type(g))
-  # print(len(g))
-  
-  # games = driver.find_elements(By.XPATH, '//*[@id="amasty-shopby-product-list"]/div[2]/ol')
-  # print(games)
-  # print(type(games))
-  # print(len(games))
 
-#  for game in games:
-    
-  #  title = game.find_element(By.XPATH, '//*[@id="product-item-info_11024"]/div/strong/a').text
-  #   url   = game.find_element(By.CLASS_NAME, 'category-product-item-title-link').get_attribute('href')
-  #   
-  #   gm = {
-  #     'title': title,
-  #     'url': url
-  #   }
-  #   print(gm)
-  #   
-  #   gameLi.append(gm)
-    
+  games = driver.find_elements(By.CLASS_NAME, 'product.details.category-product-item-info.product-item-details')
+  
+  for game in games[:51]:
+      
+    title = game.find_element(By.CLASS_NAME, 'product.name.product-item-name').text
+    url = game.find_element(By.CLASS_NAME, 'product-item-link').get_attribute('href')            
+    pageGame = {
+        'title': title,
+        'url': url
+    }
+        
+    gameLi.append(pageGame)
+          
   return gameLi
 

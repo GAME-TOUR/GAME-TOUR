@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+
+import pandas as pd
+import datetime
 import time
 
 from nintendo_gameListCrawling import scrap_gameList, popup_close
@@ -14,18 +17,16 @@ opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 # 드라이버 설정 
 driver = webdriver.Chrome(options=opt)
 
-pageList = list()
+gameList = list()
 
-# for i in range(1, 94): 
-#   print(f'page{i} crawling')
-#   url = f'https://store.nintendo.co.kr/all-released-games?p={i}&product_list_limit=48'
-#   driver.get(url)
-#   if i == 1: 
-#     popup_close(driver)
-#     
-#   pageList.append(scrap_gameList(driver))
-  
-driver.get("https://store.nintendo.co.kr/all-released-games?p=1&product_list_limit=48")
-popup_close(driver)
-test = scrap_gameList(driver)
-print(test)
+for i in range(1, 2): 
+  print(f'page{i} crawling')
+  url = f'https://store.nintendo.co.kr/all-released-games?p={i}&product_list_limit=48'
+  driver.get(url)
+  if i == 1: 
+    popup_close(driver)
+    
+  gameList.append(scrap_gameList(driver))
+
+gameList_df = pd.DataFrame(gameList)
+print(gameList_df)
