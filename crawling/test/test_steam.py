@@ -19,7 +19,7 @@ opt = Options()
 # opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 # 드라이버 설정 
-driver = webdriver.Chrome(options=opt)
+# driver = webdriver.Chrome(options=opt)
 # driver_eng = webdriver.Chrome(options=opt)
 
 # 성인 인증 절차를 미리 해결 
@@ -191,59 +191,59 @@ def concat_data(gameList, infoList, platform):
 
     return concatList
 
-smp = scrap_gameList(driver)
-print("gamelist crawling sucess")
-adult_cert(driver, driver_eng)
-print("adult certification sucess")
-
-tmp = []
-for i in range(len(smp)):
-    # print(smp[i]['url'])
-    res = gameInfo_scrap(driver, driver_eng, smp[i]['url']) 
-    print(res)
-    
-    if res != None:
-        tmp.append(res)
-
-print("detail information crawling sucess")
-concat_data(smp, tmp, 'steam') 
-
-time.sleep(10)
+# smp = scrap_gameList(driver)
+# print("gamelist crawling sucess")
+# adult_cert(driver, driver_eng)
+# print("adult certification sucess")
+# 
+# tmp = []
+# for i in range(len(smp)):
+#     # print(smp[i]['url'])
+#     res = gameInfo_scrap(driver, driver_eng, smp[i]['url']) 
+#     print(res)
+#     
+#     if res != None:
+#         tmp.append(res)
+# 
+# print("detail information crawling sucess")
+# concat_data(smp, tmp, 'steam') 
+# 
+# time.sleep(10)
 
 # concat_data(smp, )
 # smp_df = pd.DataFrame(smp)
 # print(smp_df)
 # gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/281990/Stellaris/')
 
-# A = {
-#     'title': "스텔라리스",
-#     'url': "https://store.steampowered.com/app/281990/Stellaris/",
-#     'date': "2016년 5월 10일"
-# }
-# ALi = list()
-# ALi.append(A)
-# 
-# tagLi = ['Space', 'Grand Strategy']
-# titleLi = ['스텔라리스', 'Stellaris']
-# B = {
-#     'tag': ",".join(tagLi),
-#     'KOR-ENG': ",".join(titleLi),
-#     'description': "항성간 여행을 통해 우주를 탐험하며 수많은 종족들도 만나보세요. 과학선을 보내 우주를 조사하고 탐험하면서 은하 제국을 건설하고, 건축선을 보내 새로 발견한 행성에 기지를 건설하세요. 소속 사회를 위한 탐험에 나서 매장된 보물과 은하계의 경이를 발견하고, 탐험가의 한계치와 진화 범위를 설정하세요",
-#     'company': "Paradox Development Studio",
-#     'publisher': "Paradox Interactive",
-#     # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
-#     'platform': "steam"
-# }
-# BLi = list()
-# BLi.append(B)
-# 
-# adf = pd.DataFrame(ALi)
-# bdf = pd.DataFrame(BLi)
-# now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
-# print(now)
-# platform = 'steam'
-# # print(adf)
-# # print(bdf)
-# concatLi = pd.concat([adf, bdf], axis=1, join='inner')
-# concatLi.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
-# print(concatLi) 
+A = {
+    'title': "스텔라리스",
+    'url': "https://store.steampowered.com/app/281990/Stellaris/",
+    'date': "2016년 5월 10일"
+}
+ALi = list()
+ALi.append(A)
+
+tagLi = ['Space', 'Grand Strategy']
+titleLi = ['스텔라리스', 'Stellaris']
+B = {
+    'tag': ",".join(tagLi),
+    'KOR-ENG': ",".join(titleLi),
+    'description': "항성간 여행을 통해 우주를 탐험하며 수많은 종족들도 만나보세요. 과학선을 보내 우주를 조사하고 탐험하면서 은하 제국을 건설하고, 건축선을 보내 새로 발견한 행성에 기지를 건설하세요. 소속 사회를 위한 탐험에 나서 매장된 보물과 은하계의 경이를 발견하고, 탐험가의 한계치와 진화 범위를 설정하세요",
+    'company': "Paradox Development Studio",
+    'publisher': "Paradox Interactive",
+    # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
+    'platform': "steam"
+}
+BLi = list()
+BLi.append(B)
+
+adf = pd.DataFrame(ALi)
+bdf = pd.DataFrame(BLi)
+now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
+print(now)
+platform = 'steam'
+# print(adf)
+# print(bdf)
+concatLi = pd.concat([adf, bdf], axis=1, join='inner')
+concatLi.to_csv('./backup/'+now+'.csv', index=False, encoding='cp949')
+print(concatLi) 

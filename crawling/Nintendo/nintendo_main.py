@@ -7,6 +7,8 @@ import datetime
 import time
 
 from nintendo_gameListCrawling import scrap_gameList, popup_close
+from nintendo_gameInfoCrawling import gameinfo_scrap
+from nintendo_concat           import nintendo_concat
 
 opt = Options()
 # 브라우저 꺼짐 방지 옵션 - 개발용
@@ -18,6 +20,7 @@ opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=opt)
 
 gameList = list()
+infoList = list()
 
 for i in range(1, 2): 
   print(f'page{i} crawling')
@@ -26,7 +29,11 @@ for i in range(1, 2):
   if i == 1: 
     popup_close(driver)
     
-  gameList.append(scrap_gameList(driver))
+  gameList = scrap_gameList(driver)
 
-gameList_df = pd.DataFrame(gameList)
-print(gameList_df)
+for i in range(len(gameList)):
+  
+  detailinfo = gameinfo_scrap(driver, gameList[i]['url'])
+  infoList.append(detailinfo)
+
+nintendo_concat(gameList, infoList, "nintendo")

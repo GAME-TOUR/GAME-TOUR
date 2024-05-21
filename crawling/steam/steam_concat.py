@@ -11,5 +11,6 @@ def steam_concat(gameList, infoList, platform):
 
     concatList = pd.concat([gameList_df, infoList_df], axis=1, join='inner')
     concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
+    print("csv saved to ./backup/" + platform + '/')
 
     return concatList
