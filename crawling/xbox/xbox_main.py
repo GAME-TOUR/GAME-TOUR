@@ -12,6 +12,9 @@ from xbox_gameInfo import scrap_gameinfo
 from xbox_concat   import xbox_concat 
 
 opt = Options()
+# 엑스박스 상점 페이지 주소
+url = 'https://www.xbox.com/ko-kr/games/all-games?cat=all#'
+
 # 브라우저 꺼짐 방지 옵션 - 개발용
 opt.add_experimental_option("detach", True) 
 # 불필요한 에러 메시지 삭제 
@@ -24,7 +27,7 @@ driver_eng = webdriver.Chrome(options=opt)
 gameList = list()
 detailList = list()
 
-driver.get('https://www.xbox.com/ko-kr/games/all-games?cat=all#')
+driver.get(url)
 driver.implicitly_wait(2)
   
 driver.find_element(By.XPATH, "//*[@id='ContentBlockList_1']/div[1]/div[1]/div[2]/span[1]/a[1]").click()

@@ -1,1 +1,0 @@
-from nintendo_gameListCrawling import scrap_gameList, popup_close
