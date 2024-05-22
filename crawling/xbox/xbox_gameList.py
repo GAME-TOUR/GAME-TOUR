@@ -18,7 +18,6 @@ FILTERWORDS = [
     '스페셜', 'Special',
     '번들', 'Bundle',
     '애드온', 'Add-On'
-    
     ]
 
 def scrap_gamelist(driver):

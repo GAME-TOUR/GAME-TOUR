@@ -2,7 +2,7 @@ import pandas as pd
 import time
 from datetime import datetime
 
-def steam_concat(gameList, infoList, platform): 
+def playstation_concat(gameList, infoList, platform): 
     
     gameList_df = pd.DataFrame(gameList)
     infoList_df = pd.DataFrame(infoList)

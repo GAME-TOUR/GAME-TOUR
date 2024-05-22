@@ -15,7 +15,7 @@ def scrap_detail(driver, driver_eng, url_kr, url_en):
   tags = driver.find_element(By.CSS_SELECTOR, "dd[data-qa='gameInfo#releaseInformation#genre-value']").text
   tagList = tags.split(',')
   
-  # thum = driver.find_element(By.XPATH, '/html/body/div[3]/main/div/div[1]/div[1]/div/div/div/div/span/img[2]').get_attribute('src')
+  thumb = driver.find_element(By.XPATH, '/html/body/div[3]/main/div/div[1]/div[1]/div/div/div/div/span/img[2]').get_attribute('src')
   description = driver.find_element(By.CSS_SELECTOR, "div[class='psw-l-w-1/1 psw-l-w-2/3@tablet-s psw-l-w-2/3@tablet-l psw-l-w-1/2@laptop psw-l-w-1/2@desktop psw-l-w-1/2@max']").find_element(By.TAG_NAME, 'p').text
   company = driver.find_element(By.CSS_SELECTOR, "dd[data-qa='gameInfo#releaseInformation#publisher-value']").text
   releaseDate = driver.find_element(By.CSS_SELECTOR, "dd[data-qa='gameInfo#releaseInformation#releaseDate-value']").text
@@ -37,6 +37,7 @@ def scrap_detail(driver, driver_eng, url_kr, url_en):
     'date': releaseDate,
     'title': ",".join(titleList),
     'description': description,
+    'thumb': thumb, 
     'company': company,
     'tag': ",".join(tagList),
     'platform': "playstation"
