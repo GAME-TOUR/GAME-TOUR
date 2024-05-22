@@ -12,7 +12,7 @@ from nintendo_concat           import nintendo_concat
 
 opt = Options()
 # 브라우저 꺼짐 방지 옵션 - 개발용
-# opt.add_experimental_option("detach", True) 
+opt.add_experimental_option("detach", True) 
 # 불필요한 에러 메시지 삭제 
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 
@@ -20,7 +20,7 @@ opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=opt)
 
 gameList = list()
-infoList = list()
+detailList = list()
 
 for i in range(1, 2): 
   print(f'page{i} crawling')
@@ -33,7 +33,7 @@ for i in range(1, 2):
 
 for i in range(len(gameList)):
   
-  detailinfo = gameinfo_scrap(driver, gameList[i]['url'])
-  infoList.append(detailinfo)
+  detail = gameinfo_scrap(driver, gameList[i]['url'])
+  detailList.append(detail)
 
-nintendo_concat(gameList, infoList, "nintendo")
+nintendo_concat(gameList, detailList, "nintendo")

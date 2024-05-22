@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 
+from nintendo_gameListCrawling import scrap_gameList, popup_close # test code
+
 def get_description(driver):
     rawTextList = []
     description = None
@@ -37,6 +39,7 @@ def get_tag(driver):
 def gameinfo_scrap(driver, url):
 
     driver.get(url)
+    popup_close(driver) # test code 
 
     title = driver.find_element(By.CLASS_NAME, 'page-title').find_element(By.TAG_NAME,'span').find_element(By.TAG_NAME,'span').text
     releaseDate = driver.find_element(By.CLASS_NAME, 'product-attribute.release_date').find_element(By.CLASS_NAME, 'product-attribute-val').text
@@ -46,7 +49,7 @@ def gameinfo_scrap(driver, url):
 
     info_dic = {
         'title': title,
-        'releaseDate': releaseDate,
+        'date': releaseDate,
         'description': description,
         'company': company,
         'tag': ",".join(tagList),
@@ -55,3 +58,12 @@ def gameinfo_scrap(driver, url):
 
     print(info_dic)
     return info_dic
+
+opt = Options()
+opt.add_experimental_option("detach", True)
+
+driver = webdriver.Chrome(options=opt)
+url = 'https://store.nintendo.co.kr/70010000054301'
+
+dic = gameinfo_scrap(driver, url)
+print(dic)
