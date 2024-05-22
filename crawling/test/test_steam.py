@@ -187,7 +187,7 @@ def concat_data(gameList, infoList, platform):
     now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
 
     concatList = pd.concat([gameList_df, infoList_df], axis=1, join='inner')
-    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
+    # concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
 
     return concatList
 
@@ -220,6 +220,9 @@ A = {
     'url': "https://store.steampowered.com/app/281990/Stellaris/",
     'date': "2016년 5월 10일"
 }
+A2 = {
+    'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'
+}
 ALi = list()
 ALi.append(A)
 
@@ -234,16 +237,19 @@ B = {
     # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
     'platform': "steam"
 }
+B2 = {
+    'title': 'Lorelei and the Laser Eyes', 'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'
+}
 BLi = list()
 BLi.append(B)
 
 adf = pd.DataFrame(ALi)
 bdf = pd.DataFrame(BLi)
 now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
-print(now)
+# print(now)
 platform = 'steam'
 # print(adf)
 # print(bdf)
 concatLi = pd.concat([adf, bdf], axis=1, join='inner')
-concatLi.to_csv('./backup/'+now+'.csv', index=False, encoding='cp949')
+# concatLi.to_csv('./backup/'+now+'.csv', index=False, encoding='cp949')
 print(concatLi) 

@@ -104,13 +104,12 @@ def gameinfo_scrap(driver, url):
     
     info_dic = {
         # 'thumb': thumb,
-        'title': title,
         'date': releaseDate,
-        'description': description,
+        # 'description': description,
         'company': company,
         # 'screenshot': ",".join(scrList),
         'tag': ",".join(tagList),
-        # 'platform': "nintendo"
+        'platform': "nintendo"
     }
 
     print(info_dic)
@@ -119,29 +118,26 @@ def gameinfo_scrap(driver, url):
 opt = Options()
 # opt.add_experimental_option("detach", True)
 
-driver = webdriver.Chrome(options=opt)
+# driver = webdriver.Chrome(options=opt)
 # url = 'https://store.nintendo.co.kr/70010000054301' # OLD
-url = 'https://store.nintendo.co.kr/70010000077702'   # NEW
+# url = 'https://store.nintendo.co.kr/70010000077702'   # NEW
 
-dic = gameinfo_scrap(driver, url)
+# dic = gameinfo_scrap(driver, url)
 
-# A = {'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'}
-# A_Li = [A]
+A = {'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'}
+B = {'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'}
+A_Li = [A]
+B_LI = [B]
 
-# A_df = pd.DataFrame(A_Li)
-# dic_df = pd.DataFrame(dic)
-# concatList = pd.concat([A_df, dic_df], axis=1, join='inner')
+A_df = pd.DataFrame(A_Li)
+B_df = pd.DataFrame(B_LI)
+concatList = pd.concat([A_df, B_df], axis=1, join='inner')
 
 # print(A_df)
-# print(concatList)
+# print(B_LI)
+print(concatList)
 
-# now = datetime.now().strftime('%y.%m.%d %H-%M-%S')
-# concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='UTF-16')
-# concatList.to_csv('/'+now+'_backup'+'.csv', index=False)
-
-# des = '신기한 힘을 지닌 「다크 문」이 밤하늘에 떠 있는 「유령 계곡」.\n유령 연구자 「아라따박사」는 밝고 쾌활한 유령들과 사이좋게 살고 있었습니다.\n그러나 어느 날, 수상한 검은 그림자가 다가옵니다.\n「킹부끄」가 「다크 문」을 여러 조각으로 부숴버린 것입니다.\n그러자 「유령 계곡」에 수상한 안개가 퍼지고, 유령들이 갑자기 날뛰기 시작해 버렸습니다……!\n\n「아라따박사」에게 억지로 끌려온 루이지는\n흩어진 「다크 문」의 조각을 모으기 위해  「유령 계곡」을 조사하게 되었습니다.\n과연 루이지는 「유령 계곡」의 평화를 되찾을 수 있을까요……?\n\n타워의 1층부터 정상을 목표로 하는 「공포의 타워」 모드도 있어, 최대 4명까지 협력 플레이를 즐길 수 있습니다.\n온라인 플레이 이외에도 로컬 통신에서도 최대 4명까지 플레이할 수 있습니다.'
-# dic = {
-#     'd': des
-# }
-
-# print(dic)
+now = datetime.now().strftime('%y.%m.%d %H-%M-%S')
+concatList.to_csv('./'+now+'_backup'+'.csv', index=False, encoding='UTF-16')
+# test code 
+# concatList.to_csv('./'+now+'_backup'+'.csv', index=False, encoding='cp949')
