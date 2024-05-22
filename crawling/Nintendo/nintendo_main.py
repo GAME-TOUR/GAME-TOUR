@@ -31,9 +31,10 @@ for i in range(1, 2):
     
   gameList = scrap_gameList(driver)
 
-for i in range(len(gameList)):
+# print(gameList)
+# for i in range(len(gameList)):
   
-  detail = gameinfo_scrap(driver, gameList[i]['url'])
-  detailList.append(detail)
+#   detail = gameinfo_scrap(driver, gameList[i]['url'])
+#   detailList.append(detail)
 
-nintendo_concat(gameList, detailList, "nintendo")
+# nintendo_concat(gameList, detailList, "nintendo")

@@ -12,6 +12,7 @@ def nintendo_concat(gameList, infoList, platform):
     print(concatList)
     
     now = datetime.now().strftime('%y.%m.%d %H-%M-%S')
-    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='UTF-16')
+    # concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='UTF-16')
+    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False)
 
     return concatList
