@@ -12,7 +12,7 @@ from nintendo_concat           import nintendo_concat
 
 opt = Options()
 # 브라우저 꺼짐 방지 옵션 - 개발용
-opt.add_experimental_option("detach", True) 
+# opt.add_experimental_option("detach", True) 
 # 불필요한 에러 메시지 삭제 
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 
@@ -30,11 +30,11 @@ for i in range(1, 2):
     popup_close(driver)
     
   gameList = scrap_gameList(driver)
-
-# print(gameList)
-# for i in range(len(gameList)):
+  print("gameList scrapped successfully")
   
-#   detail = gameinfo_scrap(driver, gameList[i]['url'])
-#   detailList.append(detail)
+for i in range(len(gameList)):
+  print(f"{i} title: {gameList[i]['title']}")
+  detail = gameinfo_scrap(driver, gameList[i]['url'])
+  detailList.append(detail)
 
-# nintendo_concat(gameList, detailList, "nintendo")
+nintendo_concat(gameList, detailList, "nintendo")

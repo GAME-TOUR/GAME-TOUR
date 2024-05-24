@@ -189,11 +189,11 @@ def concat_data(gameList, infoList, platform):
     now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
 
     concatList = pd.concat([gameList_df, infoList_df], axis=1, join='inner')
-    concatList.replace("–", "-", inplace=True, regex=True)
-    concatList.replace("ー", "-", inplace=True, regex=True)
-    concatList.replace("・", " ", inplace=True, regex=True)
+    # concatList.replace("–", "-", inplace=True, regex=True)
+    # concatList.replace("ー", "-", inplace=True, regex=True)
+    # concatList.replace("・", " ", inplace=True, regex=True)
 
-    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
+    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False)
 
     return concatList
 
@@ -218,16 +218,27 @@ print(len(smp))
 adult_cert(driver, driver_eng)
 print("adult certification sucess")
 
+now_smp = smp[350:450]
 tmp = []
-for i in range(50): # 2550
-    # print(smp[i]['url'])
-    res = gameInfo_scrap(driver, driver_eng, smp[i]['url']) 
-    print(f'{i} title: {smp[i]["title"]}')
-  
+for i in range(len(now_smp)):
+    res = gameInfo_scrap(driver, driver_eng, now_smp[i]['url'])
+    print(f"{i} title: {now_smp[i]['title']}")
+    
     if res != None:
         tmp.append(res)
+
 print("detail information crawling sucess")
-concat_data(smp, tmp, 'steam') 
+concat_data(now_smp, tmp, 'steam') 
+
+# tmp = []
+# for i in range(300, 400): # 2550
+#     # print(smp[i]['url'])
+#     res = gameInfo_scrap(driver, driver_eng, smp[i]['url']) 
+#     print(f'{i} title: {smp[i]["title"]}')
+  
+#     if res != None:
+#         tmp.append(res)
+
 
 # a = gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/242050/Assassins_Creed_IV_Black_Flag/')
 # print(a)

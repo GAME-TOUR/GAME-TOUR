@@ -74,9 +74,9 @@ def get_tag(driver):
 def gameinfo_scrap(driver, url):
 
     driver.get(url)
-    popup_close(driver) # test code 
+    # popup_close(driver) # test code 
     
-    driver.implicitly_wait(30)
+    driver.implicitly_wait(10)
 
     title = driver.find_element(By.CLASS_NAME, 'page-title').find_element(By.TAG_NAME,'span').find_element(By.TAG_NAME,'span').text
     # print(title)
@@ -93,8 +93,8 @@ def gameinfo_scrap(driver, url):
     tagList = get_tag(driver)
     # print(tagList)
     
-    # scrList = get_image(driver)
-    # thumb = scrList[0]
+    scrList = get_image(driver)
+    thumb = scrList[0]
 
     # OLD
     # description = driver.find_element(By.XPATH, "//*[@id='maincontent']/div[2]/div/div[3]/div/div/div[1]/div[1]/div[1]/div[2]/div[1]").text
@@ -103,19 +103,21 @@ def gameinfo_scrap(driver, url):
     # description = driver.find_element(By.XPATH, "//*[@id='maincontent']/div[2]/div/div[3]/div/div/div[1]/div[1]/div[1]/div[2]/div[1]/p[3]").text
     
     info_dic = {
-        # 'thumb': thumb,
+        'thumb': thumb,
         'date': releaseDate,
-        # 'description': description,
+        'description': description,
         'company': company,
-        # 'screenshot': ",".join(scrList),
+        'screenshot': ",".join(scrList),
         'tag': ",".join(tagList),
         'platform': "nintendo"
     }
 
-    print(info_dic)
+    # print(info_dic)
     return info_dic
 
-opt = Options()
+# test code 
+# ----------------------------------------------------------------------------------
+# opt = Options()
 # opt.add_experimental_option("detach", True)
 
 # driver = webdriver.Chrome(options=opt)
@@ -124,20 +126,20 @@ opt = Options()
 
 # dic = gameinfo_scrap(driver, url)
 
-A = {'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'}
-B = {'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'}
-A_Li = [A]
-B_LI = [B]
+# A = {'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'}
+# B = {'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'}
+# A_Li = [A]
+# B_LI = [B]
 
-A_df = pd.DataFrame(A_Li)
-B_df = pd.DataFrame(B_LI)
-concatList = pd.concat([A_df, B_df], axis=1, join='inner')
+# A_df = pd.DataFrame(A_Li)
+# B_df = pd.DataFrame(B_LI)
+# concatList = pd.concat([A_df, B_df], axis=1, join='inner')
 
 # print(A_df)
 # print(B_LI)
-print(concatList)
+# print(concatList)
 
-now = datetime.now().strftime('%y.%m.%d %H-%M-%S')
-concatList.to_csv('./'+now+'_backup'+'.csv', index=False, encoding='UTF-16')
+# now = datetime.now().strftime('%y.%m.%d %H-%M-%S')
+# concatList.to_csv('./'+now+'_backup'+'.csv', index=False, encoding='cp949')
 # test code 
 # concatList.to_csv('./'+now+'_backup'+'.csv', index=False, encoding='cp949')

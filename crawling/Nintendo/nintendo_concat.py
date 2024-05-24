@@ -9,10 +9,13 @@ def nintendo_concat(gameList, infoList, platform):
 
     concatList = pd.concat([gameList_df, infoList_df], axis=1, join='inner')
     
-    print(concatList)
-    
     now = datetime.now().strftime('%y.%m.%d %H-%M-%S')
-    # concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='UTF-16')
-    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
+    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False)
 
     return concatList
+
+
+A = [{ 'tset': "test"}]
+B = { 'dddd': "dddd"}
+df = pd.DataFrame(A)
+df.to_csv('./backup/nintendo'+'/'+'_backup'+'.csv', index=False)
