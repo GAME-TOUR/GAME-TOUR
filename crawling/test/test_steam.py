@@ -7,21 +7,6 @@ import pandas as pd
 import datetime
 import time
 
-# 스팀 상점 페이지 주소 (한국어&영어)
-get_url = "https://store.steampowered.com/search/?supportedlang=english%2Ckoreana&filter=topsellers&ndl=1"
-
-opt = Options()
-
-# 브라우저 꺼짐 방지 옵션 - 개발용
-# opt.add_experimental_option("detach", True) 
-
-# 불필요한 에러 메시지 삭제 
-# opt.add_experimental_option('excludeSwitches', ['enable-logging'])
-
-# 드라이버 설정 
-# driver = webdriver.Chrome(options=opt)
-# driver_eng = webdriver.Chrome(options=opt)
-
 # 성인 인증 절차를 미리 해결 
 def adult_cert(driver, driver_eng): 
 
@@ -73,36 +58,36 @@ def scrap_gameList(driver):
     curpageHeight = driver.execute_script('return document.body.scrollHeight')
 
     # 로딩할 페이지가 있는동안 
-    # while(doScroll):
-    #     # 페이지 끝으로 이동
-    #     driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+    while(doScroll):
+        # 페이지 끝으로 이동
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
-    #     # 로딩 대기 
-    #     time.sleep(1)
+        # 로딩 대기 
+        time.sleep(1)
 
-    #     # 새로 이동한 높이
-    #     newpageHght = driver.execute_script('return document.body.scrollHeight')
+        # 새로 이동한 높이
+        newpageHght = driver.execute_script('return document.body.scrollHeight')
 
-    #     if curpageHeight == newpageHght:
-    #         doScroll  = False
-    #         break
+        if curpageHeight == newpageHght:
+            doScroll  = False
+            break
 
-    #     curpageHeight = newpageHght
+        curpageHeight = newpageHght
 
-    #     gameRows = driver.find_element(By.ID, 'search_resultsRows')
-    #     games = gameRows.find_elements(By.TAG_NAME, 'a')
+        gameRows = driver.find_element(By.ID, 'search_resultsRows')
+        games = gameRows.find_elements(By.TAG_NAME, 'a')
 
-    #     for i in range(len(gameLi), len(games)):
-    #         title = games[i].find_element(By.CLASS_NAME, 'title').text
-    #         url = games[i].get_attribute('href')
-    #         releaseDate = games[i].find_element(By.CLASS_NAME, 'col.search_released.responsive_secondrow').text
+        for i in range(len(gameLi), len(games)):
+            title = games[i].find_element(By.CLASS_NAME, 'title').text
+            url = games[i].get_attribute('href')
+            releaseDate = games[i].find_element(By.CLASS_NAME, 'col.search_released.responsive_secondrow').text
 
-    #         my_game = {
-    #             'title': title,
-    #             'url': url,
-    #             'date': releaseDate
-    #         }
-    #         gameLi.append(my_game)
+            my_game = {
+                'title': title,
+                'url': url,
+                'date': releaseDate
+            }
+            gameLi.append(my_game)
 
     gameRows = driver.find_element(By.ID, 'search_resultsRows')
     games = gameRows.find_elements(By.TAG_NAME, 'a')
@@ -127,6 +112,7 @@ def gameInfo_scrap(driver, driver_eng, url):
     tagLi = []
     infoLi = [] 
     titleLi = []
+    scrLi   = []
 
     driver.implicitly_wait(10)
     driver_eng.implicitly_wait(10)
@@ -154,6 +140,17 @@ def gameInfo_scrap(driver, driver_eng, url):
     titleLi.append(title_en)
     # 한글/영문 이름이 동일할 수 있으니 중복 제거 
     titleLi = sorted(set(titleLi))
+    # 썸네일 수집 
+    parser = url.split('/')
+    for i in range(len(parser)):
+        if (parser[i] == 'app'):
+            app_id = parser[i+1]
+
+    thumb = f'https://steamcdn-a.akamaihd.net/steam/apps/{app_id}/library_600x900_2x.jpg'
+    # 스크린샷
+    screenshot = driver.find_elements(By.CLASS_NAME, 'highlight_strip_item.highlight_strip_screenshot')
+    for scr in screenshot:
+        scrLi.append(scr.find_element(By.TAG_NAME, 'img').get_attribute('src'))
 
     # 개발사 정보 수집
     company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
@@ -162,7 +159,10 @@ def gameInfo_scrap(driver, driver_eng, url):
     try: 
       publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[4]/div[2]/a').text
     except NoSuchElementException:
-      publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[2]/div/div[3]/div[4]/div[2]/a').text
+        try:
+            publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[2]/div/div[3]/div[4]/div[2]/a').text
+        except NoSuchElementException:
+            publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[3]/div[2]/a').text
 
     # 게임 정보
     description = driver.find_element(By.CLASS_NAME, 'game_description_snippet').text
@@ -173,7 +173,8 @@ def gameInfo_scrap(driver, driver_eng, url):
         'description': description,
         'company': company,
         'publisher': publisher,
-        # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
+        'thumb': thumb,
+        'screenshot': ",".join(scrLi), # 스크린샷 수집?  
         'platform': "steam"
     }
 
@@ -183,31 +184,54 @@ def concat_data(gameList, infoList, platform):
     
     gameList_df = pd.DataFrame(gameList)
     infoList_df = pd.DataFrame(infoList)
+    # infoList_df = infoList_df.replace(to_replace="\u30fc", value="-")
     
     now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
 
     concatList = pd.concat([gameList_df, infoList_df], axis=1, join='inner')
-    # concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
+    concatList.replace("–", "-", inplace=True, regex=True)
+    concatList.replace("ー", "-", inplace=True, regex=True)
+    concatList.replace("・", " ", inplace=True, regex=True)
+
+    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
 
     return concatList
 
-# smp = scrap_gameList(driver)
-# print("gamelist crawling sucess")
-# adult_cert(driver, driver_eng)
-# print("adult certification sucess")
-# 
-# tmp = []
-# for i in range(len(smp)):
-#     # print(smp[i]['url'])
-#     res = gameInfo_scrap(driver, driver_eng, smp[i]['url']) 
-#     print(res)
-#     
-#     if res != None:
-#         tmp.append(res)
-# 
-# print("detail information crawling sucess")
-# concat_data(smp, tmp, 'steam') 
-# 
+# 스팀 상점 페이지 주소 (한국어&영어)
+get_url = "https://store.steampowered.com/search/?supportedlang=english%2Ckoreana&filter=topsellers&ndl=1"
+
+opt = Options()
+
+# 브라우저 꺼짐 방지 옵션 - 개발용
+# opt.add_experimental_option("detach", True) 
+
+#불필요한 에러 메시지 삭제 
+opt.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+# 드라이버 설정 
+driver = webdriver.Chrome(options=opt)
+driver_eng = webdriver.Chrome(options=opt)
+
+smp = scrap_gameList(driver)
+print("gamelist crawling sucess")
+print(len(smp))
+adult_cert(driver, driver_eng)
+print("adult certification sucess")
+
+tmp = []
+for i in range(50): # 2550
+    # print(smp[i]['url'])
+    res = gameInfo_scrap(driver, driver_eng, smp[i]['url']) 
+    print(f'{i} title: {smp[i]["title"]}')
+  
+    if res != None:
+        tmp.append(res)
+print("detail information crawling sucess")
+concat_data(smp, tmp, 'steam') 
+
+# a = gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/242050/Assassins_Creed_IV_Black_Flag/')
+# print(a)
+
 # time.sleep(10)
 
 # concat_data(smp, )
@@ -215,41 +239,57 @@ def concat_data(gameList, infoList, platform):
 # print(smp_df)
 # gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/281990/Stellaris/')
 
-A = {
-    'title': "스텔라리스",
-    'url': "https://store.steampowered.com/app/281990/Stellaris/",
-    'date': "2016년 5월 10일"
-}
-A2 = {
-    'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'
-}
-ALi = list()
-ALi.append(A)
+# A = {
+#     'title': "스텔라리스",
+#     'url': "https://store.steampowered.com/app/281990/Stellaris/",
+#     'date': "2016년 5월 10일"
+# }
+# A2 = {
+#     'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'
+# }
+# ALi = list()
+# ALi.append(A)
+# 
+# tagLi = ['Space', 'Grand Strategy']
+# titleLi = ['스텔라리스', 'Stellaris']
+# B = {
+#     'tag': ",".join(tagLi),
+#     'KOR-ENG': ",".join(titleLi),
+#     'description': "항성간 여행을 통해ー우주-를 탐험하며 수많은 종족들도 만나보세요. 과학선을 보내 우주를 조사하고 탐험하면서 은하 제국을 건설하고, 건축선을 보내 새로 발견한 행성에 기지를 건설하세요. 소속 사회를 위한 탐험에 나서 매장된 보물과 은하계의 경이를 발견하고, 탐험가의 한계치와 진화 범위를 설정하세요",
+#     'company': "Paradox Development Studio",
+#     'publisher': "Paradox Interactive",
+#     # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
+#     'platform': "steam"
+# }
+# B2 = {
+#     'title': 'Lorelei and the Laser Eyes', 'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'
+# }
+# BLi = list()
+# BLi.append(B)
+# 
+# concat_data(ALi, BLi, 'steam')
 
-tagLi = ['Space', 'Grand Strategy']
-titleLi = ['스텔라리스', 'Stellaris']
-B = {
-    'tag': ",".join(tagLi),
-    'KOR-ENG': ",".join(titleLi),
-    'description': "항성간 여행을 통해 우주를 탐험하며 수많은 종족들도 만나보세요. 과학선을 보내 우주를 조사하고 탐험하면서 은하 제국을 건설하고, 건축선을 보내 새로 발견한 행성에 기지를 건설하세요. 소속 사회를 위한 탐험에 나서 매장된 보물과 은하계의 경이를 발견하고, 탐험가의 한계치와 진화 범위를 설정하세요",
-    'company': "Paradox Development Studio",
-    'publisher': "Paradox Interactive",
-    # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
-    'platform': "steam"
-}
-B2 = {
-    'title': 'Lorelei and the Laser Eyes', 'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'
-}
-BLi = list()
-BLi.append(B)
-
-adf = pd.DataFrame(ALi)
-bdf = pd.DataFrame(BLi)
-now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
-# print(now)
-platform = 'steam'
-# print(adf)
+# adf = pd.DataFrame(ALi)
+# bdf = pd.DataFrame(BLi)
 # print(bdf)
-concatLi = pd.concat([adf, bdf], axis=1, join='inner')
+# bdf.replace("ー", "-", inplace=True, regex=True)
+# # bdf.replace("항성간", "tlqkfwkdskscu?", inplace=True, regex=True)
+# print(bdf)
+# now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
+# print(now)
+# platform = 'steam'
+# # print(adf)
+# # print(bdf)
+# concatLi = pd.concat([adf, bdf], axis=1, join='inner')
 # concatLi.to_csv('./backup/'+now+'.csv', index=False, encoding='cp949')
-print(concatLi) 
+# print(concatLi) 
+
+# url = 'https://store.steampowered.com/app/281990/Stellaris/'
+# li = url.split('/')
+# for i in range(len(li)):
+#     if (li[i] == 'app'):
+#         app_id = li[i+1]
+# print(app_id)
+
+
+

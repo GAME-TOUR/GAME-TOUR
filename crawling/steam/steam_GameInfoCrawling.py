@@ -67,8 +67,12 @@ def gameInfo_scrap(driver, driver_eng, url):
     # 한글/영문 이름이 동일할 수 있으니 중복 제거 
     titleLi = sorted(set(titleLi))
 
-    # 썸네일 수집 
-    thumb = driver.find_element(By.CLASS_NAME, 'game_header_image_full').get_attribute('src')
+    parser = url.split('/')
+    for i in range(len(parser)):
+        if (parser[i] == 'app'):
+            app_id = parser[i+1]
+
+    thumb = f'https://steamcdn-a.akamaihd.net/steam/apps/{app_id}/library_600x900_2x.jpg'
     # 스크린샷
     screenshot = driver.find_elements(By.CLASS_NAME, 'highlight_strip_item.highlight_strip_screenshot')
     for scr in screenshot:
@@ -99,4 +103,3 @@ def gameInfo_scrap(driver, driver_eng, url):
     }
     
     print(Info_dic)
-    

@@ -71,3 +71,9 @@ https://steamcdn-a.akamaihd.net/steam/apps/<APP_ID>/library_600x900_2x.jpg
 
 ~~셀레니움 성능이 좋지 않아 2500개 크롤링하는데도 자꾸 먹통이 된다...~~    
 &rarr; 300개씩 나눠서 크롤링 
+
+utf를 쓰면 인덱스별로 저장이 안되고 cp949를 쓰면 특수문자들에 막힌다... 나오는 특수문자를 처리해주는게 차악인듯
+
+replace가 안되서 왜 안되나 했더니 inplace, regex 옵션을 줘야함 
+https://stackoverflow.com/questions/37593550/replace-method-not-working-on-pandas-dataframe
+

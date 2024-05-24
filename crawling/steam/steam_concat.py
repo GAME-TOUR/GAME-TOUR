@@ -16,14 +16,15 @@ def steam_concat(gameList, infoList, platform):
 
     return concatList
 
-A = {'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'}
-B = {'title': 'Lorelei and the Laser Eyes', 'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'}
-A_Li = [A]
-B_LI = [B]
-A_DF = pd.DataFrame(A_Li)
-B_DF = pd.DataFrame(B_LI)
+# test code 
+# A = {'title': 'Lorelei and the Laser Eyes', 'url': 'https://store.nintendo.co.kr/70010000054301'}
+# B = {'title': 'Lorelei and the Laser Eyes', 'date': '2024.04.21', 'company': 'Annapurna Interactive', 'tag': '어드벤쳐, 퍼즐', 'platform': 'nintendo'}
+# A_Li = [A]
+# B_LI = [B]
+# A_DF = pd.DataFrame(A_Li)
+# B_DF = pd.DataFrame(B_LI)
 
-CLi = pd.concat([A_DF, B_DF], axis=1, join='inner')
-print(CLi)
+# CLi = pd.concat([A_DF, B_DF], axis=1, join='inner')
+# print(CLi)
 
 # steam_concat(A_Li, B_LI, "nintendo")
