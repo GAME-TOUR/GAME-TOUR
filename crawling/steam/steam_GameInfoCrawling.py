@@ -80,7 +80,11 @@ def gameInfo_scrap(driver, driver_eng, url):
 
 
     # 개발사 정보 수집
-    company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+    try:
+        company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+    except NoSuchElementException:
+        print("No company information")
+        company = "No company Information"
 
     # 배급사 정보 수집 
     try: 

@@ -153,7 +153,11 @@ def gameInfo_scrap(driver, driver_eng, url):
         scrLi.append(scr.find_element(By.TAG_NAME, 'img').get_attribute('src'))
 
     # 개발사 정보 수집
-    company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+    try:
+        company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+    except NoSuchElementException:
+        print("No company information")
+        company = None
 
     # 배급사 정보 수집 
     try: 
@@ -162,7 +166,11 @@ def gameInfo_scrap(driver, driver_eng, url):
         try:
             publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[2]/div/div[3]/div[4]/div[2]/a').text
         except NoSuchElementException:
-            publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[3]/div[2]/a').text
+            try: 
+                publisher = driver.find_element(By.XPATH, '//*[@id="game_highlights"]/div[1]/div/div[3]/div[3]/div[2]/a').text
+            except NoSuchElementException:
+                publisher = None
+
 
     # 게임 정보
     description = driver.find_element(By.CLASS_NAME, 'game_description_snippet').text
@@ -218,11 +226,11 @@ print(len(smp))
 adult_cert(driver, driver_eng)
 print("adult certification sucess")
 
-now_smp = smp[350:450]
+now_smp = smp[2700:]
 tmp = []
 for i in range(len(now_smp)):
-    res = gameInfo_scrap(driver, driver_eng, now_smp[i]['url'])
     print(f"{i} title: {now_smp[i]['title']}")
+    res = gameInfo_scrap(driver, driver_eng, now_smp[i]['url'])
     
     if res != None:
         tmp.append(res)
@@ -240,7 +248,7 @@ concat_data(now_smp, tmp, 'steam')
 #         tmp.append(res)
 
 
-# a = gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/242050/Assassins_Creed_IV_Black_Flag/')
+# a = gameInfo_scrap(driver, driver_eng, 'https://store.steampowered.com/app/603030/Lamp_Head/')
 # print(a)
 
 # time.sleep(10)
