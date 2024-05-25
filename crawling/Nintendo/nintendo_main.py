@@ -7,7 +7,8 @@ import datetime
 import time
 
 from nintendo_gameListCrawling import scrap_gameList, popup_close
-from nintendo_gameInfoCrawling import gameinfo_scrap
+from test import gameinfo_scrap
+# from nintendo_gameInfoCrawling import gameinfo_scrap
 from nintendo_concat           import nintendo_concat
 
 opt = Options()
@@ -30,7 +31,9 @@ for i in range(1, 2):
     popup_close(driver)
     
   gameList = scrap_gameList(driver)
-  print("gameList scrapped successfully")
+
+print("gameList scrapped successfully")
+
   
 for i in range(len(gameList)):
   print(f"{i} title: {gameList[i]['title']}")

@@ -171,7 +171,6 @@ def gameInfo_scrap(driver, driver_eng, url):
             except NoSuchElementException:
                 publisher = None
 
-
     # 게임 정보
     description = driver.find_element(By.CLASS_NAME, 'game_description_snippet').text
     
