@@ -1,60 +1,63 @@
 import csv
 import mysql.connector
 
-# Connect to the MySQL database
-db = mysql.connector.connect(
+# Connect to MySQL
+mydb = mysql.connector.connect(
     host="your_host",
     user="your_username",
     password="your_password",
     database="your_database"
 )
 
-cursor = db.cursor()
+# Create a cursor object
+cursor = mydb.cursor()
 
 # Create the table if it doesn't exist
 create_table_query = """
-CREATE TABLE IF NOT EXISTS your_table_name (
+CREATE TABLE IF NOT EXISTS gameinfo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title CHAR(255),
-    url CHAR(255),
+    title_en CHAR(255),
     date DATE,
     tag JSON,
-    K_E JSON,
     description TEXT,
     company CHAR(255),
     publisher CHAR(255),
-    platform CHAR(255)
+    platform CHAR(255),
+    starpoint DOUBLE
 )
 """
 cursor.execute(create_table_query)
 
+# CSV file path
+csv_file = 'path/to/your/file.csv'
+
 # Open the CSV file
-with open('your_csv_file.csv', 'r') as csv_file:
-    csv_reader = csv.DictReader(csv_file)
+with open(csv_file, 'r') as file:
+    csv_reader = csv.DictReader(file)
 
-    # Prepare the SQL insert query
-    insert_query = """
-    INSERT INTO your_table_name
-    (title, url, date, tag, K_E, description, company, publisher, platform)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-    """
-
-    # Iterate over each row in the CSV file and insert data into the database
+    # Iterate over each row in the CSV file
     for row in csv_reader:
-        values = (
-            row['title'],
-            row['url'],
-            row['date'],
-            row['tag'],
-            row['K-E'],
-            row['description'],
-            row['company'],
-            row['publisher'],
-            row['platform']
-        )
-        cursor.execute(insert_query, values)
+        # Extract the values from the row, excluding the 'url' column
+        title = row['title']
+        title_en = row['title_en']
+        date = row['date']
+        tag = row['tag']
+        description = row['description']
+        company = row['company']
+        publisher = row['publisher']
+        platform = row['platform']
+
+        # Prepare the SQL query
+        query = "INSERT INTO gameinfo (title, title_en, date, tag, description, company, publisher, platform) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (title, title_en, date, tag, description, company, publisher, platform)
+
+        # Execute the query
+        cursor.execute(query, values)
 
     # Commit the changes and close the connection
-    db.commit()
+    mydb.commit()
     cursor.close()
-    db.close()
+    mydb.close()
+
+print("Data inserted successfully!")

@@ -1,1 +1,0 @@
-gameRows = driver.find_element(By.ID, 'search_resultsRows

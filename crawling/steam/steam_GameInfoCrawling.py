@@ -35,9 +35,10 @@ def adult_cert(driver, driver_eng):
 # 해당 페이지 게임 상세정보 스크래핑 
 def gameInfo_scrap(driver, driver_eng, url):
 
-    tagLi = []
-    infoLi = [] 
+    tagLi   = []
+    infoLi  = [] 
     titleLi = []
+    scrLi   = []
 
     driver.implicitly_wait(2)
     driver_eng.implicitly_wait(2)
@@ -66,8 +67,24 @@ def gameInfo_scrap(driver, driver_eng, url):
     # 한글/영문 이름이 동일할 수 있으니 중복 제거 
     titleLi = sorted(set(titleLi))
 
+    parser = url.split('/')
+    for i in range(len(parser)):
+        if (parser[i] == 'app'):
+            app_id = parser[i+1]
+
+    thumb = f'https://steamcdn-a.akamaihd.net/steam/apps/{app_id}/library_600x900_2x.jpg'
+    # 스크린샷
+    screenshot = driver.find_elements(By.CLASS_NAME, 'highlight_strip_item.highlight_strip_screenshot')
+    for scr in screenshot:
+        scrLi.append(scr.find_element(By.TAG_NAME, 'img').get_attribute('src'))
+
+
     # 개발사 정보 수집
-    company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+    try:
+        company = driver.find_element(By.XPATH, '//*[@id="developers_list"]/a').text
+    except NoSuchElementException:
+        print("No company information")
+        company = "No company Information"
 
     # 배급사 정보 수집 
     try: 
@@ -84,9 +101,9 @@ def gameInfo_scrap(driver, driver_eng, url):
         'description': description,
         'company': company,
         'publisher': publisher,
-        # 'screenshot': ",".join(scrLi), -- 스크린샷 수집? 
+        'thumb': thumb,
+        'screenshot': ",".join(scrLi), # 스크린샷 수집? 
         'platform': "steam"
     }
     
     print(Info_dic)
-    
