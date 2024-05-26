@@ -23,6 +23,7 @@ driver = webdriver.Chrome(options=opt)
 driver_eng = webdriver.Chrome(options=opt)
 
 detailList = list()
+driver.get('https://store.playstation.com/ko-kr/pages/browse')
 wait = WebDriverWait(driver, 10)
 
 time.sleep(2)
@@ -30,7 +31,6 @@ count = driver.find_element(By.CLASS_NAME, 'psw-t-body.psw-c-t-2').text
 count = count.split('/')
 count = count[1]
 count = int(count[:2])
-
 
 print(count)
 

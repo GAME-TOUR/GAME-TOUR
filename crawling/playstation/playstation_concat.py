@@ -10,7 +10,7 @@ def playstation_concat(gameList, infoList, platform):
     now = datetime.datetime.now().strftime('%y.%m.%d %H-%M-%S')
 
     concatList = pd.concat([gameList_df, infoList_df], axis=1, join='inner')
-    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False, encoding='cp949')
+    concatList.to_csv('./backup/'+platform+'/'+now+'_backup'+'.csv', index=False)
     print("csv saved to ./backup/" + platform + '/')
 
     return concatList

@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 import time
@@ -11,8 +12,10 @@ from nintendo_gameListCrawling import scrap_gameList, popup_close
 def get_description(driver):
     rawTextList = []
     description = None
-    descRaw = driver.find_element(By.CLASS_NAME, 'product-attribute-content.expanded').find_elements(By.TAG_NAME,'p')
-
+    try:
+        descRaw = driver.find_element(By.CLASS_NAME, 'product-attribute-content.expanded').find_elements(By.TAG_NAME,'p')
+    except NoSuchElementException:
+        return description
 
     if descRaw != []:
         for raw in descRaw:
@@ -73,11 +76,12 @@ def gameinfo_scrap(driver, url):
     description = get_description(driver)
     company = driver.find_element(By.XPATH,"//*[@id='maincontent']/div[2]/div/div[3]/div/div/div[1]/div[2]/div[1]/div[2]").text
     tagList = get_tag(driver)
+    thumb = driver.find_element(By.CLASS_NAME, 'fotorama__img').get_attribute('src')
     # scrList = get_image(driver)
     # thumb = driver.find_element(By.XPATH, '//*[@id="maincontent"]/div[2]/div/div[2]/div[2]/div[2]/div[2]/div[1]/div[3]/div[1]/img').text
     
     info_dic = {
-        # 'thumb': thumb,
+        'thumb': thumb,
         'releaseDate': releaseDate,
         'description': description,
         'company': company,
