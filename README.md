@@ -19,4 +19,4 @@
 
 https://www.notion.so/junow2/HNU-Capstone-Game-Tour-4a3c8b4e4ea642ba807cb7d90ec1295b
 
-# [9주차 활동](https://junow2.notion.site/9-a8adf35a6aeb4f73bab195cbd0765b99?pvs=4)
+# (https://junow2.notion.site/6cc37506781f47fdaf81fbd0f7bd9564?pvs=4)
