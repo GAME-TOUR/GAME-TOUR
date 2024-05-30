@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .review-count {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .review {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+
+        .review-header .author {
+            color: blue;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .review-header .date {
+            color: blue;
+            font-style: italic;
+        }
+
+        .review-header .rating {
+            font-size: 20px;
+            color: gold;
+        }
+
+        .review .content {
+            margin-top: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="review-count">Review: <span id="total-reviews"></span></div>
+    <div class="pagination-container">
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <div class="review-container">
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">Cosmic Kat</span>
+                    <span class="date">30/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                this game is kind of all over the place but it's so fucking good it's amazing.
+                it never drags it's always keeping things interesting.
+                everyone should try at least once
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">Coppeage</span>
+                    <span class="date">16/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            </div>
+            <div class="content">
+                You either get this game or you don't, and when you do it's one of the most beautifully done,
+                full-body goosebumps games out there.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div>
+                    <span class="author">John Doe</span>
+                    <span class="date">29/05/2024</span>
+                </div>
+                <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius lectus id metus interdum, sed
+                consequat nisi rhoncus.
+            </div>
+        </div>
+        <!-- Thêm các review khác ở đây -->
+
+    </div>
+
+    <script>
+        const reviewsPerPage = 10;
+        const reviews = document.querySelectorAll('.review');
+        const totalReviews = reviews.length;
+        const totalPages = Math.ceil(totalReviews / reviewsPerPage);
+        const paginationContainer = document.getElementById('pagination');
+        const totalReviewsElement = document.getElementById('total-reviews');
+
+        function showPage(page) {
+            const start = (page - 1) * reviewsPerPage;
+            const end = start + reviewsPerPage;
+
+            reviews.forEach((review, index) => {
+                review.classList.add('hidden');
+                if (index >= start && index < end) {
+                    review.classList.remove('hidden');
+                }
+            });
+
+            document.querySelectorAll('.pagination button').forEach((button) => {
+                button.classList.remove('active');
+            });
+
+            document.querySelector(`.pagination button[data-page="${page}"]`).classList.add('active');
+        }
+
+        function createPagination() {
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.innerText = i;
+                button.setAttribute('data-page', i);
+                button.addEventListener('click', () => showPage(i));
+                paginationContainer.appendChild(button);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            totalReviewsElement.innerText = totalReviews;
+            createPagination();
+            showPage(1);
+        });
+    </script>
+</body>
+
+</html>
