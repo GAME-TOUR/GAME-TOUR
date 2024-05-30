@@ -1,0 +1,269 @@
+.home-header-container {
+    height: 60px;
+    width: 100%;
+    padding: 0 20px;
+
+    .home-header-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        .left-content {
+            width: 25%;
+            display: flex;
+            align-items: center;
+            // border: 1px solid green;
+
+            .header-logo {
+                background: url('logo.svg') left center no-repeat;
+                background-size: contain;
+                height: 100%;
+                width: 100%;
+
+                right: 75%;
+                cursor: pointer;
+            }
+
+            i {
+                font-size: 25px;
+                color: grey;
+                cursor: pointer;
+            }
+        }
+
+        .center-content {
+            width: 50%;
+            // border: 1px solid orange;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .right-content {
+            width: 25%;
+            // border: 1px solid grey;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+.home-header-banner {
+    background: url('header-background2.png');
+    height: 485px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+
+    .content-up {
+        // border: 1px solid red;
+        height: 50%;
+
+        .title1 {
+            text-align: center;
+            font-size: 30px;
+            text-shadow: 1px 1px 1px whitesmoke;
+            margin-bottom: 15px;
+            color: white;
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+
+        .title2 {
+            text-align: center;
+            font-size: 30px;
+            text-shadow: 1px 1px 1px whitesmoke;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .search {
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin: 0 auto;
+            border-radius: 30px;
+            background: orange;
+
+            i {
+                margin: 0 5px;
+            }
+
+            input {
+                height: 30px;
+                width: 300px;
+                background: transparent;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+
+    .content-down {
+        // border: 1px solid green;
+        height: 50%;
+
+        .content-down-text {
+            padding-left: 175px;
+            color: white;
+        }
+
+        .options {
+
+            text-align: center;
+
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+
+            .option-child {
+                cursor: pointer;
+                width: 125px;
+                text-align: center;
+
+
+                .image-child {
+                    width: 125px;
+                    padding: 10px;
+                    text-align: center;
+                    margin: 0 auto;
+                }
+
+                .text-child {
+                    &:hover {
+                        color: blue;
+                    }
+
+                    color: white;
+                }
+
+                // .child1 {
+
+                //     width: 40px;
+                //     height: 40px;
+                //     padding: 10px;
+                //     border-radius: 50%;
+
+                //     margin: 0 auto;
+
+                //     .image-pubg {
+                //         width: 100px;
+                //         height: auto;
+                //     }
+
+                //     .image-text1 {
+                //         &:hover {
+                //             color: blue;
+                //         }
+
+                //         color: white;
+                //     }
+                // }
+
+                // .child2 {
+
+                //     width: 40px;
+                //     height: 40px;
+                //     padding: 10px;
+                //     border-radius: 50%;
+
+                //     margin: 0 auto;
+
+                //     .image-elden {
+                //         width: 100px;
+                //         height: auto;
+                //     }
+
+                //     .image-text2 {
+                //         color: white;
+                //     }
+                // }
+
+                // .child3 {
+
+                //     width: 40px;
+                //     height: 40px;
+                //     padding: 10px;
+                //     border-radius: 50%;
+
+                //     margin: 0 auto;
+
+                //     .image-hades {
+                //         width: 100px;
+                //         height: auto;
+                //     }
+
+                //     .image-text3 {
+                //         color: white;
+                //     }
+                // }
+
+                // .child4 {
+
+                //     width: 40px;
+                //     height: 40px;
+                //     padding: 10px;
+                //     border-radius: 50%;
+
+                //     margin: 0 auto;
+
+                //     .image-csgo {
+                //         width: 100px;
+                //         height: auto;
+                //     }
+
+                //     .image-text4 {
+                //         color: white;
+                //     }
+                // }
+
+                // .child5 {
+
+                //     width: 40px;
+                //     height: 40px;
+                //     padding: 10px;
+                //     border-radius: 50%;
+
+                //     margin: 0 auto;
+
+                //     .image-darksoul {
+                //         width: 100px;
+                //         height: auto;
+                //     }
+
+                //     .image-text5 {
+                //         color: white;
+                //     }
+                // }
+
+                // .child6 {
+
+                //     width: 40px;
+                //     height: 40px;
+                //     padding: 10px;
+                //     border-radius: 50%;
+
+                //     margin: 0 auto;
+
+                //     .image-vrising {
+                //         width: 100px;
+                //         height: auto;
+                //     }
+
+                //     .image-text6 {
+                //         color: white;
+                //     }
+                // }
+            }
+
+        }
+
+    }
+
+
+}
