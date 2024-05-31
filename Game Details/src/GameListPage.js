@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './GameListPage.css';
-import logo from './logo.svg';
+import SubHeader from './SubHeader';
 
 // 각 게임 객체에 이미지 URL을 추가
 const dummyGames = [
@@ -29,45 +29,16 @@ const dummyGames = [
 
 const GameList = () => {
   const [games, setGames] = useState([]);
-  const [filteredGames, setFilteredGames] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     setGames(dummyGames);
-    setFilteredGames(dummyGames);
   }, []);
-
-  useEffect(() => {
-    const results = games.filter(game =>
-        game.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        game.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredGames(results);
-  }, [searchTerm, games]);
 
   return (
       <div className="App">
-        <div className="navbar">
-          <div className="navbar-top">
-            <img src={logo} alt="Logo" className="logo" />
-            <h1 className="site-title">GameTour</h1> {/* 사이트 제목 추가 */}
-            <div className="navbar-links">
-              메인 페이지 {/* 메인 페이지 링크 */}
-              로그인 {/* 로그인 링크 */}
-            </div>
-          </div>
-          <div className="navbar-bottom">
-            <input
-                type="text"
-                placeholder="Search games..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="search-bar"
-            />
-          </div>
-        </div>
+        <SubHeader />
         <div className="game-grid">
-          {filteredGames.map(game => (
+          {games.map(game => (
               <div key={game.id} className="game-item">
                 <img src={game.imageUrl} alt={`Cover of ${game.title}`} />
                 <div className="game-details">

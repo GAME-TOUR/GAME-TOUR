@@ -5,34 +5,12 @@ body {
   sans-serif;
 }
 
-/*.App {
-  padding: 20px;
-}*/
-
-.navbar {
-  width: 100%;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #e7e7e7;
-}
-
 .navbar-top, .navbar-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   width: 100%;
-}
-
-.navbar-top {
-  background-color: rgba(0, 116, 255, 0.40);
-}
-
-.navbar-bottom {
-  background-color: rgba(0, 116, 255, 0.01);
-}
-
-.logo {
-  width: 60px; /* 로고 크기 조절 */
 }
 
 .search-bar {

@@ -1,7 +1,7 @@
 import React from 'react';
 //import { useParams } from 'react-router-dom';
 import './GameDetailPage.css';
-import HomeHeader from './HomeHeader';  // HomeHeader 컴포넌트 추가
+import SubHeader from './SubHeader';  // SubHeader 컴포넌트 추가
 
 const gamesData = [
     {
@@ -58,7 +58,7 @@ function GameDetailPage() {
 
     return (
         <div className="App">
-            <HomeHeader />
+            <SubHeader />
             <div className="game-detail">
                 <div className="game-data">
                     <div className="first-row">

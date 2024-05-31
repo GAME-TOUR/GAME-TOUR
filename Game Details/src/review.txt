@@ -1,0 +1,7 @@
+[
+            { username: "JohnDoe", content: "Great game with deep story!", rating: 5 },
+            { username: "JaneDoe", content: "Love the graphics and gameplay!", rating: 5 },
+            { username: "Alex", content: "Well made!", rating: 4 },
+            { username: "Sam", content: "Not bad", rating: 4 },
+            { username: "Chris", content: "Not my style", rating: 2 }
+        ]
