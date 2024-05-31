@@ -5,7 +5,6 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
 
-
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 
 import { path } from '../utils'
@@ -22,6 +21,7 @@ import ConfirmModal from '../components/ConfirmModal';
 
 class App extends Component {
 
+    //  
     handlePersistorState = () => {
         const { persistor } = this.props;
         let { bootstrapped } = persistor.getState();
@@ -48,10 +48,11 @@ class App extends Component {
                         <ConfirmModal />
                         {this.props.isLoggedIn && <Header />}
 
-                        <span className="content-container">
+                        <span className="content-container"> 
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                {/* 백엔드로 데이터 보내기 */}
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.HOMEPAGE} component={HomePage} />
                             </Switch>
